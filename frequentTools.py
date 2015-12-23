@@ -55,7 +55,7 @@ def find_frequent_word():
     # for word, frequency in fdist.most_common(50):
     #     print('%s;%d' % (word, frequency)).encode('utf-8')
 
-    str2 = '+ +'.join(str(word) for word, frequency in fdist.most_common(100))
+    str2 = ' + '.join(str(word) for word, frequency in fdist.most_common(100))
 
     #str2 = ''.join(str(e) for e in raw_words)
 
