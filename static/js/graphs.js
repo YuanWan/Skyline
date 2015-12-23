@@ -1,21 +1,22 @@
 queue()
-    .defer(d3.json, "/donorschoose/projects")
+    .defer(d3.json, "/test/twitters")
     .defer(d3.json, "static/geojson/us-states.json")
     .await(makeGraphs);
 
 function makeGraphs(error, projectsJson, statesJson) {
 	
 	//Clean projectsJson data
-	var donorschooseProjects = projectsJson;
+	var SkylineProjects = projectsJson;
 	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
-	donorschooseProjects.forEach(function(d) {
+	d["total_posts"] =0;
+	SkylineProjects.forEach(function(d) {
 		d["date_posted"] = dateFormat.parse(d["date_posted"]);
 		d["date_posted"].setDate(1);
-		d["total_donations"] = +d["total_donations"];
+		d["total_posts"] = 1+d["total_posts"];
 	});
 
 	//Create a Crossfilter instance
-	var ndx = crossfilter(donorschooseProjects);
+	var ndx = crossfilter(SkylineProjects);
 
 	//Define Dimensions
 	var dateDim = ndx.dimension(function(d) { return d["date_posted"]; });
