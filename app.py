@@ -16,17 +16,21 @@ DBS_NAME = 'test'
 # FIELDS = {'school_state': True, 'resource_type': True, 'poverty_level': True, 'date_posted': True, 'total_donations': True, '_id': False}
 connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/stats")
 def stats():
     return render_template("stats.html")
 
+
 @app.route('/api/frequent/', methods=['GET'])
 def call_frequent():
-    return frequentTools.find_frequentWord()
+    return frequentTools.find_frequent_word()
+
 
 @app.route("/db/twitter")
 def db_twitter():
@@ -39,6 +43,7 @@ def db_twitter():
     json_twitters = json.dumps(json_twitters, default=json_util.default)
     connection.close()
     return json_twitters
+
 
 @app.route("/db/news")
 def db_news():
