@@ -54,14 +54,15 @@ def find_frequent_word():
     # Calculate frequency distribution
     fdist = nltk.FreqDist(words)
 
-    # Output top 50 words
+    # Output top 100 words
+    word_list=[]
+    for word, frequency in fdist.most_common(100):
+        data = {}
+        data['text'] = word
+        data['weight'] = frequency
+        word_list.append(data)
 
-    # for word, frequency in fdist.most_common(50):
-    #     print('%s;%d' % (word, frequency)).encode('utf-8')
-
-    str2 = ' + '.join(str(word) for word, frequency in fdist.most_common(100))
-
-    #str2 = ''.join(str(e) for e in raw_words)
+    #str2 = ' + '.join(str(word) for word, frequency in fdist.most_common(100))
 
     connection.close()
-    return str2;
+    return word_list;

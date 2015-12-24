@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/jqcloud.js"></script>
+    <link rel="stylesheet" href="/static/css/jqcloud.css">
+
+
+    <title>Title</title>
+</head>
+<body>
+    <div id="demo" class="jqcloud" style="width: 1000px; height: 800px;"></div>
+<script type="text/javascript">
+
+    $('#demo').jQCloud({{ word_list|safe }});
+
+    </script>
+  </body>
+</html>

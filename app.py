@@ -29,7 +29,8 @@ def stats():
 
 @app.route('/api/frequent/', methods=['GET'])
 def call_frequent():
-    return frequentTools.find_frequent_word()
+    word_list=frequentTools.find_frequent_word()
+    return render_template("word_cloud.html",word_list=json.dumps(word_list))
 
 
 @app.route("/db/twitter")
