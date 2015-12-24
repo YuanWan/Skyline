@@ -5,6 +5,8 @@ from bson import json_util
 from collections import Counter
 import re
 from nltk.corpus import stopwords
+import codecs
+import os
 
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
@@ -15,10 +17,12 @@ connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
 def find_frequent_word():
     default_stopwords = set(nltk.corpus.stopwords.words('english'))
     # We're adding some on our own - could be done inline like this...
-    custom_stopwords = set(('price', '/', 'charts','\'s','\\','\"',"''",'rt','inc.','...','--'))
+    #custom_stopwords = set(('price', '/', 'charts','\'s','\\','\"',"''",'rt','inc.','...','--'))
     # ... but let's read them from a file instead (one stopword per line, UTF-8)
-    # stopwords_file = './stopwords.txt'
-    # custom_stopwords = set(codecs.open(stopwords_file, 'r', 'utf-8').read().splitlines())
+    script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+    rel_path = "stopwords.txt"
+    stopwords_file = os.path.join(script_dir, rel_path)
+    custom_stopwords = set(codecs.open(stopwords_file, 'r', 'utf-8').read().splitlines())
 
     all_stopwords = default_stopwords | custom_stopwords
 
