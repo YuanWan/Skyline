@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TwitterBeater - Real time tweets pulse from Spain & Portugal</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/gstyle.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row" >
+            <div id="map"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-xs-12 col-sm-6 col-lg-3">
+                <div class="row" >
+                    <div class="col-xs-8 col-sm-8 col-lg-8">
+                        <h2><i class="fa fa-heart"></i> TwitterBeater</h2>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-lg-4">
+                        <h1><div id="time"></div></h1>
+                    </div>
+                </div>
+                <div class="row" >
+                    <p>Real time tweets pulse</p>
+
+
+                 </div>
+                 <h4>This is an experimental project which aims to evangelaist on open data and their applications.</h4>
+                 <h4>Feel free to share it or do your own analysis based on the data.</h4>
+                 <h4>This web app has been built with Flask, d3.js, sockets.io and Twitter Streaming API.</h4>
+                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-hashtags="twitterbeater">Tweet</a>
+                 <br>
+                     <br>
+<!--
+                <div class="row text-center" >
+                    Handcrafted by <strong><a href="http://datageeklab.com" style="color: white">DataGeekLab</a></strong> since 2014.
+                   |<a href="dmartincc84@gmail.com" style="color: white"> Contact </a>
+                </div>
+-->
+                 <!--div class="row text-right" >
+                    <p>Polarity [Negative - Positive]</p>
+                    <div class="progress">
+                      <div class="progress-bar polarity"  role="progressbar" aria-valuenow="1" aria-valuemin="-100" aria-valuemax="100" style="width: 50%;">
+                        <span class="sr-only">60% Complete</span>
+                      </div>
+                    </div>
+
+                 </div>
+                 <div class="row text-right" >
+                    <p>Subjetivity [0 - 100%]</p>
+                    <div class="progress">
+                      <div class="progress-bar subjetivity" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">60% Complete</span>
+                      </div>
+                    </div>
+                 </div-->
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-5">
+                <h3>PULSE</h3>
+                <hr>
+                <div class="row text-right" >
+                    <div class="col-xs-8 col-sm-8 col-lg-9">
+                        <div id="chart"></div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-lg-3">
+                        <h1 id="count"></h1>
+                        <p>Total Tweets</p>
+                    <h1 id="speed"></h1>
+                        <p>Tweets per second</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <h3>TWEETS LOG</h3>
+                <hr>
+                <div id="log"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="static/js/gapp.js"></script>
+    <script type="text/javascript" >
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            // add a zero in front of numbers<10
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+            t = setTimeout(function () {
+                startTime()
+            }, 500);
+        }
+        startTime();
+    </script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</body>
+</html>

@@ -44,8 +44,12 @@ def find_frequent_word():
     # Lowercase all words (default_stopwords are lowercase too)
     words = [word.lower() for word in words]
 
+    # TODO: remove punctuation
+    punctuation = re.compile(r'[-+.?!\\/,":;()|0-9]')
+    words = [punctuation.sub("", word) for word in words]
+
     # Stemming words seems to make matters worse, disabled
-    # stemmer = nltk.stem.snowball.SnowballStemmer('german')
+    # stemmer = nltk.stem.snowball.SnowballStemmer('english')
     # words = [stemmer.stem(word) for word in words]
 
     # Remove stopwords

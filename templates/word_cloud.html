@@ -13,7 +13,12 @@
     <div id="demo" class="jqcloud" style="width: 1000px; height: 800px;"></div>
 <script type="text/javascript">
 
-    $('#demo').jQCloud({{ word_list|safe }});
+    $('#demo').jQCloud({{ word_list|safe }},{autoResize: true,
+{#        shape: 'rectangular',#}
+        fontSize: {
+            from: 0.12,
+            to: 0.02
+  }});
 
     </script>
   </body>
