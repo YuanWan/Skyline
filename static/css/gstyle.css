@@ -1,0 +1,137 @@
+    body {
+            font-family: 'Dosis', sans-serif;            
+            background-color:#DC3D24;
+            color:white;    
+            scrollbar-base-color : #ff00ff;
+            
+        }
+
+   .row{
+        margin:0;
+        padding:0;
+    }
+
+    
+    #map {
+            height: 650px;
+            width:100%;           
+    }
+            
+
+    #map .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 314159;
+            pointer-events: none;
+    }
+
+
+    .legend {
+        line-height: 18px;
+        color: #555;
+    }
+    
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 1;
+    }
+
+    #count, #speed, .fa {
+        color:#940504;
+    }
+
+    .progress-bar{
+      background-color:#940504;
+    }
+
+    hr{
+      solid:#940504;
+    }
+
+    #time{
+        color:#940504;
+        bottom:10px;        
+    }
+
+    .line {
+      fill: none;
+      stroke: #940504;
+      stroke-width: 1.5px;
+    }
+
+    .axis path,
+    .axis line {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    shape-rendering: crispEdges;
+}
+    
+
+    circle{
+      stroke: #940504;
+      fill:white;
+    }
+
+    .tip-d3 {   
+          position: absolute;           
+          text-align: center;           
+          width: 150px;                  
+          height: 70px;                 
+          padding: 10px;             
+          font: 14px sans-serif;        
+          background: black;   
+          color:white;
+          border: 0px;      
+          border-radius: 8px;           
+          pointer-events: none;         
+        }
+
+
+    #log{
+        overflow-y: scroll;
+        height:245px;
+
+    }
+
+
+    #log{
+    scrollbar-face-color: #367CD2;
+    scrollbar-shadow-color: #FFFFFF;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-darkshadow-color: #FFFFFF;
+    scrollbar-track-color: #FFFFFF;
+    scrollbar-arrow-color: #FFFFFF;
+}
+
+/* Let's get this party started */
+#log::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+#log::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    width: 5px;
+}
+ 
+/* Handle */
+#log::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: #A11D1C; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    width: 10px; 
+}
+
+   
+
+
+    
