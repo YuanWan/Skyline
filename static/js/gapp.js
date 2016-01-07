@@ -2,6 +2,8 @@ $(document).ready(function(){
             var data=[];
             var map = L.map('map').setView([19.481924, 19.049447], 3);
 
+        tcount=0;
+
             L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{z}/{x}/{y}.png', {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
                     maxZoom: 18
@@ -89,6 +91,40 @@ $(document).ready(function(){
 
 
 
+        window.setInterval(function(){
+            $.getJSON('/db/pool', function(data) {
+    makeGraphs(data)
+});
+        }, 5000);
+
+    function makeGraphs(projectsJson) {
+        var geojsonMarkerOptions = {
+                radius: 3,
+                fillColor: "#FFBE08",
+                color: "#FFBE08",
+                weight: 1,
+                opacity: 0.1,
+                fillOpacity: 0.5
+                };
+        speed=projectsJson.length/5;
+        $('#speed').html(speed);
+        updateData(speed);
+        $('#count').html(tcount+=projectsJson.length);
+        for(i=0; i<projectsJson.length;i++) {
+            msg = JSON.parse(projectsJson[i]);
+            //    if(msg.coordinates){
+            //        alert("haha0");
+            //    }
+            $('#log').prepend('<br>Received : ' + msg.text);
+            if (msg.coordinates.coordinates) {
+                L.circleMarker(msg.coordinates.coordinates, geojsonMarkerOptions)
+                    .addTo(map).bindPopup("<div class='row'><div class='col-md-3'><img src=" + msg.profile_image + " class='img-rounded'></div><div class='col-md-9'><h5 style='color:black'>" + msg.username + "</h5><p style='color:grey'>" + msg.status + "</p></div></div>");
+            }
+        }
+
+    }
+
+
             //namespace = '/gmonitor'; // change to an empty string to use the global namespace
 
             // the socket.io documentation recommends sending an explicit package upon connection
@@ -102,10 +138,10 @@ $(document).ready(function(){
                     //$('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
                     //$('#chat').scrollTop($('#chat')[0].scrollHeight);
                 });
-            socket.on('message', function(data) {
-                    $('#chat').val($('#chat').val() + data.msg + '\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                });
+            //socket.on('message', function(data) {
+            //        $('#chat').val($('#chat').val() + data.msg + '\n');
+            //        $('#chat').scrollTop($('#chat')[0].scrollHeight);
+            //    });
 
 
             //connect
@@ -115,10 +151,10 @@ $(document).ready(function(){
 
             // event handler for server sent data
             // the data is displayed in the "Received" section of the page
-            //socket.on('my response', function(msg) {
-            //    $('#log').prepend('<br>Received #' + msg.count + ': ' + msg.status);
-            //});
-            //
+            socket.on('my response', function(msg) {
+                $('#log').prepend('<br>Received #' + msg.count + ': ' + msg.status);
+            });
+
             //socket.on('error', function(msg) {
             //    $('#log').append('<br>Received #' + msg.count + ': ' + msg);
             //});

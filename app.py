@@ -34,9 +34,15 @@ class StdOutListener(StreamListener):
     def on_data(self, data):
         # socketio.emit('message', {'msg': data})
         # trigger_msg(data)
-        global msgpool
-        msgpool.append(data)
-        print(data)
+        d = json.loads(data)
+        if d.get("text") is not None:
+            global msgpool
+            msgpool.append(data)
+            print(data)
+        if d.get("coordinates") is not None:
+            print(d.get("coordinates"))
+        if d.get("place") is not None:
+            print(d.get("place.full_name"))
         return True
     def on_error(self, status):
         print(status)
@@ -71,13 +77,15 @@ def stats():
 @app.route("/sock")
 def gmonitor():
     #This handles Twitter authetification and the connection to Twitter Streaming API
+    GEOBOX_WORLD = [-180,-90,180,90]
+    GEOBOX_GERMANY = [5.0770049095, 47.2982950435, 15.0403900146, 54.9039819757]
     l = StdOutListener()
     global msgpool
     msgpool = []
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
-    streamfire = stream.filter(track=['python', 'javascript', 'ruby'], async=True)
+    streamfire = stream.filter(track=['trip'], async=True)
     return render_template("gmonitor.html")
 
 
@@ -85,6 +93,12 @@ def gmonitor():
 def call_frequent():
     word_list=frequentTools.find_frequent_word()
     return render_template("word_cloud.html",word_list=json.dumps(word_list))
+
+@app.route('/test/coor', methods=['GET'])
+def test_coor():
+    coor=[2.34321,5.3454]
+    json_coor = json.dumps(coor, default=json_util.default)
+    return json_coor
 
 
 @app.route("/db/twitter")
