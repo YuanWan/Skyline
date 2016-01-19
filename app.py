@@ -16,10 +16,12 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 
 
-
-
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 msgpool=[]
@@ -70,9 +72,20 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/stats")
-def stats():
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+@app.route("/newspaper")
+def newspaper():
+    return render_template("newspaper.html")
+
+
+@app.route("/upload")
+def upload():
     return render_template("stats.html")
+
 
 @app.route("/sock")
 def gmonitor():
@@ -85,7 +98,7 @@ def gmonitor():
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
-    streamfire = stream.filter(track=['trip'], async=True)
+    streamfire = stream.filter(track=['delicious'], async=True)
     return render_template("gmonitor.html")
 
 
@@ -116,7 +129,7 @@ def db_twitter():
 
 @app.route("/db/news")
 def db_news():
-    collection = connection[DBS_NAME]['news']
+    collection = connection[DBS_NAME]['newspaper']
     news = collection.find(limit=100)
     #projects = collection.find(projection=FIELDS)
     json_news = []
@@ -196,9 +209,5 @@ def trigger_msg(msg):
 
 
 if __name__ == "__main__":
-    # from gevent import monkey
-    # monkey.patch_all()
-    # stream = Stream(auth, l)
-    # streamfire = stream.filter(track=['python', 'javascript', 'ruby'], async=True)
     socketio.run(app)
     app.run(host='0.0.0.0',port=5000,debug=True)

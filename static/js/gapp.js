@@ -4,10 +4,16 @@ $(document).ready(function(){
 
         tcount=0;
 
-            L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{z}/{x}/{y}.png', {
-                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-                    maxZoom: 18
-            }).addTo(map);
+            //L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{z}/{x}/{y}.png', {
+            //        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            //        maxZoom: 18
+            //}).addTo(map);
+
+    //bright map
+            L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+            subdomains: ['otile1','otile2','otile3','otile4']
+            }).addTo( map );
 
              function getColor(d) {
                 return d > 0.8  ? '#1A6A34' :
@@ -110,14 +116,29 @@ $(document).ready(function(){
         $('#speed').html(speed);
         updateData(speed);
         $('#count').html(tcount+=projectsJson.length);
+        //L.circleMarker([8,9], geojsonMarkerOptions)
+        //            .addTo(map).bindPopup("<div class='row'><div class='col-md-3'><img src=" + msg.profile_image + " class='img-rounded'></div><div class='col-md-9'><h5 style='color:black'>" + msg.username + "</h5><p style='color:grey'>" + msg.status + "</p></div></div>");
+
         for(i=0; i<projectsJson.length;i++) {
             msg = JSON.parse(projectsJson[i]);
             //    if(msg.coordinates){
             //        alert("haha0");
             //    }
+            var coordinates=[null,null];
+            if(msg.coordinates!=null){
+                coordinates[1]=msg.coordinates.coordinates[0];
+                coordinates[0]=msg.coordinates.coordinates[1];
+
+            }
+            else if(msg.place!=null){
+                if(msg.place.bounding_box!=null) {
+                    coordinates[1] = (msg.place.bounding_box.coordinates[0][0][0] + msg.place.bounding_box.coordinates[0][2][0]) / 2;
+                    coordinates[0] = (msg.place.bounding_box.coordinates[0][0][1] + msg.place.bounding_box.coordinates[0][2][1]) / 2;
+                }
+            }
             $('#log').prepend('<br>Received : ' + msg.text);
-            if (msg.coordinates.coordinates) {
-                L.circleMarker(msg.coordinates.coordinates, geojsonMarkerOptions)
+            if (coordinates[0]!=null) {
+                L.circleMarker(coordinates, geojsonMarkerOptions)
                     .addTo(map).bindPopup("<div class='row'><div class='col-md-3'><img src=" + msg.profile_image + " class='img-rounded'></div><div class='col-md-9'><h5 style='color:black'>" + msg.username + "</h5><p style='color:grey'>" + msg.status + "</p></div></div>");
             }
         }
@@ -212,7 +233,6 @@ $(document).ready(function(){
 
             
         };         
-            
 
        
 
