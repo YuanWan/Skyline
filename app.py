@@ -77,9 +77,9 @@ def dashboard():
     return render_template("dashboard.html")
 
 
-@app.route("/newspaper")
-def newspaper():
-    return render_template("newspaper.html")
+@app.route("/newspaper/<stackname>")
+def newspaper(stackname):
+    return render_template("newspaper.html",stackname=stackname)
 
 
 @app.route("/upload")
@@ -107,6 +107,13 @@ def call_frequent():
     word_list=frequentTools.find_frequent_word()
     return render_template("word_cloud.html",word_list=json.dumps(word_list))
 
+
+@app.route('/api/frequent_news/', methods=['GET'])
+def call_frequent_news():
+    word_list=frequentTools.find_frequent_word()
+    return render_template("word_cloud.html",word_list=json.dumps(word_list))
+
+
 @app.route('/test/coor', methods=['GET'])
 def test_coor():
     coor=[2.34321,5.3454]
@@ -127,10 +134,23 @@ def db_twitter():
     return json_twitters
 
 
-@app.route("/db/news")
-def db_news():
-    collection = connection[DBS_NAME]['newspaper']
+@app.route("/db/news/<stackname>")
+def db_news(stackname):
+    collection = connection['news'][stackname]
     news = collection.find(limit=100)
+    #projects = collection.find(projection=FIELDS)
+    json_news = []
+    for new in news:
+        json_news.append(new)
+    json_news = json.dumps(json_news, default=json_util.default)
+    connection.close()
+    return json_news
+
+
+@app.route("/db/article/<stackname>/<link_hash>")
+def db_article(stackname,link_hash):
+    collection = connection['news'][stackname]
+    news = collection.find({"link_hash":link_hash})
     #projects = collection.find(projection=FIELDS)
     json_news = []
     for new in news:
