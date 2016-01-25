@@ -4,16 +4,16 @@ $(document).ready(function(){
 
         tcount=0;
 
-            //L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{z}/{x}/{y}.png', {
-            //        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            //        maxZoom: 18
-            //}).addTo(map);
+            L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-cnkhv76j/{z}/{x}/{y}.png', {
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                    maxZoom: 18
+            }).addTo(map);
 
     //bright map
-            L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
-            subdomains: ['otile1','otile2','otile3','otile4']
-            }).addTo( map );
+    //        L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+    //        attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+    //        subdomains: ['otile1','otile2','otile3','otile4']
+    //        }).addTo( map );
 
              function getColor(d) {
                 return d > 0.8  ? '#1A6A34' :

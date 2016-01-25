@@ -1,14 +1,15 @@
 /**
  * Created by Yuan on 2016/1/20.
  */
-function analyze(stackname,link_hash){
+function analyze(link_hash){
+    var stackname = $("#stackname")[0].value;
     var articleAPI = "/db/article/"+stackname+"/"+link_hash;
     $.getJSON( articleAPI, {
     link_hash: link_hash
   })
     .done(function( data ) {
       $.each( data, function( i, news ) {
-          $("#pop_text").text(article.text)
+          $("#pop_text").text(news.text)
       });
     });
 

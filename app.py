@@ -14,6 +14,9 @@ import tweepy
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
+from textblob import TextBlob
+from textblob.sentiments import NaiveBayesAnalyzer
+import apiTools
 
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -87,11 +90,15 @@ def upload():
     return render_template("stats.html")
 
 
-@app.route("/sock")
+@app.route("/quick")
+def quick_analysis():
+    return render_template("quick.html")
+
+
+@app.route("/map")
 def gmonitor():
     #This handles Twitter authetification and the connection to Twitter Streaming API
-    GEOBOX_WORLD = [-180,-90,180,90]
-    GEOBOX_GERMANY = [5.0770049095, 47.2982950435, 15.0403900146, 54.9039819757]
+
     l = StdOutListener()
     global msgpool
     msgpool = []
@@ -106,6 +113,51 @@ def gmonitor():
 def call_frequent():
     word_list=frequentTools.find_frequent_word()
     return render_template("word_cloud.html",word_list=json.dumps(word_list))
+
+
+@app.route('/api/trends_us/', methods=['GET'])
+def trends_us():
+    result=apiTools.trends_us()
+    return json.dumps(result)
+
+
+@app.route('/api/trends_sg/', methods=['GET'])
+def trends_sg():
+    result=apiTools.trends_sg()
+    return json.dumps(result)
+
+
+@app.route('/api/trends_global/', methods=['GET'])
+def trends_global():
+    result=apiTools.trends_global()
+    return json.dumps(result)
+
+
+@app.route('/api/quick/', methods=['POST'])
+def quick_service():
+    type = request.form['type']
+    text = None
+    if type == "text":
+        text = request.form['content']
+    if type == "url":
+        url = request.form['url']
+    word_list=frequentTools.quick(text)
+
+    analyzer_pa = TextBlob(text)
+    # analyzer_nb = TextBlob(text, analyzer=NaiveBayesAnalyzer())
+    print(analyzer_pa.sentiment)
+    # print(analyzer_nb.sentiment)
+    sentiments = {
+            "pa_polarity":analyzer_pa.sentiment.polarity,
+            "pa_subjectivity":analyzer_pa.sentiment.subjectivity,
+            "score":analyzer_pa.sentiment.polarity*analyzer_pa.sentiment.subjectivity
+            # "nb_classification":analyzer_nb.sentiment.classification,
+            # "nb_p_pos":analyzer_nb.sentiment.p_pos,
+            # "nb-p_neg":analyzer_nb.sentiment.p_neg
+    }
+    word_list.append(sentiments)
+    quick_result=json.dumps(word_list)
+    return quick_result;
 
 
 @app.route('/api/frequent_news/', methods=['GET'])
