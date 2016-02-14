@@ -17,6 +17,7 @@ from tweepy import Stream
 from textblob import TextBlob
 from textblob.sentiments import NaiveBayesAnalyzer
 import apiTools
+import analytics
 
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -80,6 +81,11 @@ def dashboard():
     return render_template("dashboard.html")
 
 
+@app.route("/election")
+def election():
+    return render_template("election.html")
+
+
 @app.route("/newspaper/<stackname>")
 def newspaper(stackname):
     return render_template("newspaper.html",stackname=stackname)
@@ -105,7 +111,7 @@ def gmonitor():
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
-    streamfire = stream.filter(track=['delicious'], async=True)
+    streamfire = stream.filter(track=['selfie'], async=True)
     return render_template("gmonitor.html")
 
 
@@ -221,6 +227,16 @@ def db_pool():
     json_pool = json.dumps(json_pool, default=json_util.default)
     msgpool=[]
     return json_pool
+
+
+@app.route("/election_api/total")
+def election_api_total():
+    total=analytics.total_data()
+    result={
+        "total":total
+    }
+    json_result=json.dumps(result,default=json_util.default)
+    return json_result
 
 
 # @socketio.on('message', namespace='/sock')
