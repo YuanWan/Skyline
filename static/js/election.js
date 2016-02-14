@@ -4,12 +4,12 @@
 
 function update_total(){
 
-    var API = "/election_api/total";
-    $.getJSON( API, {
-  })
-    .done(function( data ) {
-        odometer.innerHTML=data.total;
-    });
+        window.setInterval(function(){
+            $.getJSON('/election_api/total', function(data) {
+            odometer.innerHTML=data.total;
+            });
+        }, 5000);
 }
 
-window.setTimeout(update_total(), 5000);
+update_total();
+

@@ -239,6 +239,12 @@ def election_api_total():
     return json_result
 
 
+@app.route("/election_api/impact_hour")
+def election_api_sum():
+    impact=analytics.impact_hour()
+    return impact
+
+
 # @socketio.on('message', namespace='/sock')
 # def handle_message(message):
 #     print('received message: ' + message)

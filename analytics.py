@@ -1,3 +1,5 @@
+import json
+
 from pymongo import MongoClient
 import datetime
 from bson.code import Code
@@ -24,8 +26,10 @@ def impact_hour():
          }
      }
    ])
+    temp=""
     for document in result:
-        print(document)
+        temp+=json.dumps(document)
+    return temp
 
 def last_hour():
     mapper = Code("""
@@ -47,6 +51,3 @@ def last_hour():
     result = collection.map_reduce(mapper, reducer, "myresults",{"candidates.Trump":1})
     for doc in result.find():
         print(doc)
-
-
-impact_hour()
