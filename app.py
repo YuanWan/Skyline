@@ -1,3 +1,4 @@
+import flask
 import pymongo
 from flask import Flask
 from flask import render_template
@@ -239,11 +240,46 @@ def election_api_total():
     return json_result
 
 
-@app.route("/election_api/impact_hour")
-def election_api_sum():
-    impact=analytics.impact_hour()
-    return impact
+@app.route("/election_api/impact")
+def election_api_impact():
+    impact=analytics.impact()
+    json_response = json.dumps(impact)
+    return json_response
 
+
+@app.route("/election_api/impact_60000")
+def election_api_impact_60000():
+    impact=analytics.impact_60000()
+    json_response = json.dumps(impact)
+    return json_response
+
+
+@app.route("/election_api/impact_240000")
+def election_api_impact_240000():
+    impact=analytics.impact_240000()
+    json_response = json.dumps(impact)
+    return json_response
+
+
+@app.route("/election_api/impact_lastweek")
+def election_api_impact_lastweek():
+    impact=analytics.impact_lastweek()
+    json_response = json.dumps(impact)
+    return json_response
+
+
+@app.route("/election_api/impact_last3day")
+def election_api_impact_last3day():
+    impact=analytics.impact_last3day()
+    json_response = json.dumps(impact)
+    return json_response
+
+
+@app.route("/election_api/impact_lastday")
+def election_api_impact_lastday():
+    impact=analytics.impact_lastday()
+    json_response = json.dumps(impact)
+    return json_response
 
 # @socketio.on('message', namespace='/sock')
 # def handle_message(message):

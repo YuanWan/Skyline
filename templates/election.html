@@ -56,7 +56,13 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 
     <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
+    <!-- jQuery -->
+    <script src="/static/js/jquery.min.js"></script>
     <script src="http://github.hubspot.com/odometer/odometer.js"></script>
+    <script src="/static/js/election.js"></script>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
 
@@ -94,8 +100,23 @@
         <!-- /.container -->
     </nav>
 
-    <div>
-        <h3>Total Tweets: </h3><div id="odometer" class="odometer" onclick="update_total">Loading</div>
+    <div class="col-md-8 col-md-offset-2">
+
+        <div>
+            <h3>Total Tweets: </h3><div id="odometer" class="odometer" onclick="update_total">Loading</div>
+        </div>
+        <br>
+
+        <ul class="nav nav-pills">
+              <li id="tab1" class="active"><a href="javascript:void(0)" onclick="get_impact_last_day()">Last 24 Hours</a></li>
+              <li id="tab2" ><a href="javascript:void(0)" onclick="get_impact_last_3day()">Last 3 Days</a></li>
+              <li id="tab3" ><a href="javascript:void(0)" onclick="get_impact_last_week()">Last Week</a></li>
+              <li id="tab4" ><a href="javascript:void(0)" onclick="get_impact_max()">Max</a></li>
+        </ul>
+         <div id="dual_y_div" style="width: 900px; height: 500px;"></div>
+
+        <div class="chart" id="ElectionChart"></div>
+
     </div>
 
     <div class="col-md-3 col-md-offset-1">
@@ -116,16 +137,6 @@
     <div class="col-md-3 col-md-offset-1">
         <h2>Ted Cruz</h2>
         <img src="../static/img/Ted_Cruz.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Jeb Bush</h2>
-        <img src="../static/img/Jeb_Bush.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Ben Carson</h2>
-        <img src="../static/img/Ben_Carson.jpg">
     </div>
 
     <div class="col-md-3 col-md-offset-1">
@@ -167,13 +178,12 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="/static/js/jquery.min.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/countUp.js"></script>
 
-    <script src="/static/js/election.js"></script>
 
 </body>
 
