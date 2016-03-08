@@ -89,16 +89,19 @@ function drawStuff() {
 
     var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
     chart.draw(data, options);
+    $("#loading").hide();
+
 };
 
 
 $(document).ready(function () {
-        $("#tab1,#tab2,#tab3,#tab4").live("click", function () {
+        $("#tab1,#tab2,#tab3,#tab4").click( function () {
             $("#tab1").removeClass("active");
             $("#tab2").removeClass("active");
             $("#tab3").removeClass("active");
             $("#tab4").removeClass("active");
             $(this).addClass("active");
+            $("#loading").show();
         });
     });
 

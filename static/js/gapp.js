@@ -22,7 +22,7 @@ $(document).ready(function(){
                        d > -0.2  ? '#FFDB4E' :
                        d > -0.6   ? '#E88A3C' :
                        d > -0.8   ? '#FF4A47' :
-                       '#FF4A47' ;                                  
+                       '#0000FF' ;
             };
 
             // Set the dimensions of the canvas / graph
@@ -106,8 +106,8 @@ $(document).ready(function(){
     function makeGraphs(projectsJson) {
         var geojsonMarkerOptions = {
                 radius: 3,
-                fillColor: "#FFBE08",
-                color: "#FFBE08",
+                fillColor: "#0000FF",
+                color: "#0000FF",
                 weight: 1,
                 opacity: 0.1,
                 fillOpacity: 0.5
