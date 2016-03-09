@@ -16,13 +16,14 @@ $(document).ready(function(){
     //        }).addTo( map );
 
              function getColor(d) {
-                return d > 0.8  ? '#1A6A34' :
-                       d > 0.6  ? '#8CBD31' :
-                       d > 0.2  ? '#FEDE00' :
-                       d > -0.2  ? '#FFDB4E' :
-                       d > -0.6   ? '#E88A3C' :
-                       d > -0.8   ? '#FF4A47' :
-                       '#0000FF' ;
+                return d > 0.4  ? '#1A6A34' :
+                       d > 0.2  ? '#8CBD31' :
+                       d > 0  ? '#FEDE00' :
+                       d > -0.1  ? '#FFDB4E' :
+                       d > -0.2   ? '#E88A3C' :
+                       d > -0.3   ? '#FF4A47' :
+                           d > -1   ? '#DA110D' :
+                       '#FEDE00' ;
             };
 
             // Set the dimensions of the canvas / graph
@@ -104,14 +105,7 @@ $(document).ready(function(){
         }, 5000);
 
     function makeGraphs(projectsJson) {
-        var geojsonMarkerOptions = {
-                radius: 3,
-                fillColor: "#0000FF",
-                color: "#0000FF",
-                weight: 1,
-                opacity: 0.1,
-                fillOpacity: 0.5
-                };
+
         speed=projectsJson.length/5;
         $('#speed').html(speed);
         updateData(speed);
@@ -124,6 +118,16 @@ $(document).ready(function(){
             //    if(msg.coordinates){
             //        alert("haha0");
             //    }
+
+            var geojsonMarkerOptions = {
+                radius: 3,
+                fillColor: getColor(msg.score),
+                color: getColor(msg.score),
+                weight: 1,
+                opacity: 0.1,
+                fillOpacity: 0.5
+                };
+
             var coordinates=[null,null];
             if(msg.coordinates!=null){
                 coordinates[1]=msg.coordinates.coordinates[0];

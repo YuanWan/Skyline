@@ -19,7 +19,7 @@ from textblob import TextBlob
 from textblob.sentiments import NaiveBayesAnalyzer
 import apiTools
 import analytics
-
+import math
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
@@ -29,13 +29,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
-msgpool=[]
-
+msgpool = []
 
 access_token = "3220384082-tbVafpAHKF2OMyv3m68cUa1xLfTmJ8Riz6bry6l"
 access_token_secret = "Eb1LiineWIRngaOwju91tEV3cexAcJhvCoxW4dNJ5UQMu"
 consumer_key = "Ghy8tbRezuJH0AtSL1qcPjqm8"
 consumer_secret = "bURQpyYNU7ZbPbZVLiCagInnbM4yZvK9hAFlhToLoZ3XjOCqSy"
+
 
 class StdOutListener(StreamListener):
     def on_data(self, data):
@@ -43,16 +43,28 @@ class StdOutListener(StreamListener):
         # trigger_msg(data)
         d = json.loads(data)
         if d.get("text") is not None:
-            global msgpool
-            msgpool.append(data)
             print(data)
-        if d.get("coordinates") is not None:
-            print(d.get("coordinates"))
-        if d.get("place") is not None:
-            print(d.get("place.full_name"))
+            analyzer = TextBlob(d.get("text"))
+            d['analyzer'] = analyzer.sentiment
+            score = analyzer.sentiment[0] * analyzer.sentiment[1]
+            d['score'] = score
+            user = d.get("user")
+            follower = user.get("followers_count", 0)
+            favorite_count = d.get("favorite_count", 0)
+            impact_factor = (1 + follower / 100 + favorite_count)
+            impact_size = math.log(impact_factor + 1, 10)
+            d['impact_size'] = impact_size
+            if d.get("coordinates") is not None:
+                print(d.get("coordinates"))
+            if d.get("place") is not None:
+                print(d.get("place.full_name"))
+            global msgpool
+            msgpool.append(json.dumps(d))
         return True
-    def on_error(self, status):
-        print(status)
+
+
+def on_error(self, status):
+    print(status)
 
 
 class MyStreamListener(tweepy.StreamListener):
@@ -66,10 +78,6 @@ DBS_NAME = 'test'
 # COLLECTION_NAME = 'projects'
 # FIELDS = {'school_state': True, 'resource_type': True, 'poverty_level': True, 'time': True, 'total_donations': True, '_id': False}
 connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
-
-
-
-
 
 
 @app.route("/")
@@ -89,7 +97,7 @@ def election():
 
 @app.route("/newspaper/<stackname>")
 def newspaper(stackname):
-    return render_template("newspaper.html",stackname=stackname)
+    return render_template("newspaper.html", stackname=stackname)
 
 
 @app.route("/upload")
@@ -104,7 +112,7 @@ def quick_analysis():
 
 @app.route("/map")
 def gmonitor():
-    #This handles Twitter authetification and the connection to Twitter Streaming API
+    # This handles Twitter authetification and the connection to Twitter Streaming API
 
     l = StdOutListener()
     global msgpool
@@ -118,25 +126,25 @@ def gmonitor():
 
 @app.route('/api/frequent/', methods=['GET'])
 def call_frequent():
-    word_list=frequentTools.find_frequent_word()
-    return render_template("word_cloud.html",word_list=json.dumps(word_list))
+    word_list = frequentTools.find_frequent_word()
+    return render_template("word_cloud.html", word_list=json.dumps(word_list))
 
 
 @app.route('/api/trends_us/', methods=['GET'])
 def trends_us():
-    result=apiTools.trends_us()
+    result = apiTools.trends_us()
     return json.dumps(result)
 
 
 @app.route('/api/trends_sg/', methods=['GET'])
 def trends_sg():
-    result=apiTools.trends_sg()
+    result = apiTools.trends_sg()
     return json.dumps(result)
 
 
 @app.route('/api/trends_global/', methods=['GET'])
 def trends_global():
-    result=apiTools.trends_global()
+    result = apiTools.trends_global()
     return json.dumps(result)
 
 
@@ -148,34 +156,34 @@ def quick_service():
         text = request.form['content']
     if type == "url":
         url = request.form['url']
-    word_list=frequentTools.quick(text)
+    word_list = frequentTools.quick(text)
 
     analyzer_pa = TextBlob(text)
     # analyzer_nb = TextBlob(text, analyzer=NaiveBayesAnalyzer())
     print(analyzer_pa.sentiment)
     # print(analyzer_nb.sentiment)
     sentiments = {
-            "pa_polarity":analyzer_pa.sentiment.polarity,
-            "pa_subjectivity":analyzer_pa.sentiment.subjectivity,
-            "score":analyzer_pa.sentiment.polarity*analyzer_pa.sentiment.subjectivity
-            # "nb_classification":analyzer_nb.sentiment.classification,
-            # "nb_p_pos":analyzer_nb.sentiment.p_pos,
-            # "nb-p_neg":analyzer_nb.sentiment.p_neg
+        "pa_polarity": analyzer_pa.sentiment.polarity,
+        "pa_subjectivity": analyzer_pa.sentiment.subjectivity,
+        "score": analyzer_pa.sentiment.polarity * analyzer_pa.sentiment.subjectivity
+        # "nb_classification":analyzer_nb.sentiment.classification,
+        # "nb_p_pos":analyzer_nb.sentiment.p_pos,
+        # "nb-p_neg":analyzer_nb.sentiment.p_neg
     }
     word_list.append(sentiments)
-    quick_result=json.dumps(word_list)
+    quick_result = json.dumps(word_list)
     return quick_result;
 
 
 @app.route('/api/frequent_news/', methods=['GET'])
 def call_frequent_news():
-    word_list=frequentTools.find_frequent_word()
-    return render_template("word_cloud.html",word_list=json.dumps(word_list))
+    word_list = frequentTools.find_frequent_word()
+    return render_template("word_cloud.html", word_list=json.dumps(word_list))
 
 
 @app.route('/test/coor', methods=['GET'])
 def test_coor():
-    coor=[2.34321,5.3454]
+    coor = [2.34321, 5.3454]
     json_coor = json.dumps(coor, default=json_util.default)
     return json_coor
 
@@ -184,7 +192,7 @@ def test_coor():
 def db_twitter():
     collection = connection[DBS_NAME]['twitter']
     twitters = collection.find(limit=10000).sort([('time', pymongo.DESCENDING)]);
-    #projects = collection.find(projection=FIELDS)
+    # projects = collection.find(projection=FIELDS)
     json_twitters = []
     for twitter in twitters:
         json_twitters.append(twitter)
@@ -197,7 +205,7 @@ def db_twitter():
 def db_news(stackname):
     collection = connection['news'][stackname]
     news = collection.find(limit=100)
-    #projects = collection.find(projection=FIELDS)
+    # projects = collection.find(projection=FIELDS)
     json_news = []
     for new in news:
         json_news.append(new)
@@ -207,10 +215,10 @@ def db_news(stackname):
 
 
 @app.route("/db/article/<stackname>/<link_hash>")
-def db_article(stackname,link_hash):
+def db_article(stackname, link_hash):
     collection = connection['news'][stackname]
-    news = collection.find({"link_hash":link_hash})
-    #projects = collection.find(projection=FIELDS)
+    news = collection.find({"link_hash": link_hash})
+    # projects = collection.find(projection=FIELDS)
     json_news = []
     for new in news:
         json_news.append(new)
@@ -226,60 +234,61 @@ def db_pool():
     for msg in msgpool:
         json_pool.append(msg)
     json_pool = json.dumps(json_pool, default=json_util.default)
-    msgpool=[]
+    msgpool = []
     return json_pool
 
 
 @app.route("/election_api/total")
 def election_api_total():
-    total=analytics.total_data()
-    result={
-        "total":total
+    total = analytics.total_data()
+    result = {
+        "total": total
     }
-    json_result=json.dumps(result,default=json_util.default)
+    json_result = json.dumps(result, default=json_util.default)
     return json_result
 
 
 @app.route("/election_api/impact")
 def election_api_impact():
-    impact=analytics.impact()
+    impact = analytics.impact()
     json_response = json.dumps(impact)
     return json_response
 
 
 @app.route("/election_api/impact_60000")
 def election_api_impact_60000():
-    impact=analytics.impact_60000()
+    impact = analytics.impact_60000()
     json_response = json.dumps(impact)
     return json_response
 
 
 @app.route("/election_api/impact_240000")
 def election_api_impact_240000():
-    impact=analytics.impact_240000()
+    impact = analytics.impact_240000()
     json_response = json.dumps(impact)
     return json_response
 
 
 @app.route("/election_api/impact_lastweek")
 def election_api_impact_lastweek():
-    impact=analytics.impact_lastweek()
+    impact = analytics.impact_lastweek()
     json_response = json.dumps(impact)
     return json_response
 
 
 @app.route("/election_api/impact_last3day")
 def election_api_impact_last3day():
-    impact=analytics.impact_last3day()
+    impact = analytics.impact_last3day()
     json_response = json.dumps(impact)
     return json_response
 
 
 @app.route("/election_api/impact_lastday")
 def election_api_impact_lastday():
-    impact=analytics.impact_lastday()
+    impact = analytics.impact_lastday()
     json_response = json.dumps(impact)
     return json_response
+
 
 # @socketio.on('message', namespace='/sock')
 # def handle_message(message):
@@ -331,7 +340,7 @@ def left(message):
     # A status message is broadcast to all people in the room."""
     # room = session.get('room')
     # leave_room(room)
-    emit('status', {'msg':  ' has left the room.'})
+    emit('status', {'msg': ' has left the room.'})
 
 
 def trigger_msg(msg):
@@ -340,4 +349,4 @@ def trigger_msg(msg):
 
 if __name__ == "__main__":
     socketio.run(app)
-    app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
