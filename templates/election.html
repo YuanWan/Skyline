@@ -8,41 +8,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-	<style>
-		#map {
-			width: 800px;
-			height: 500px;
-		}
+    <style>
+        #map {
+            width: 800px;
+            height: 500px;
+        }
 
-		.info {
-			padding: 6px 8px;
-			font: 14px/16px Arial, Helvetica, sans-serif;
-			background: white;
-			background: rgba(255,255,255,0.8);
-			box-shadow: 0 0 15px rgba(0,0,0,0.2);
-			border-radius: 5px;
-		}
-		.info h4 {
-			margin: 0 0 5px;
-			color: #777;
-		}
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
 
-		.legend {
-			text-align: left;
-			line-height: 18px;
-			color: #555;
-		}
-		.legend i {
-			width: 18px;
-			height: 18px;
-			float: left;
-			margin-right: 8px;
-			opacity: 0.7;
-		}
-	</style>
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
+        .legend {
+            text-align: left;
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
 
     <title>Skyline Systems</title>
 
@@ -53,137 +55,139 @@
     <link href="../static/css/landing-page.css" rel="stylesheet">
     <link href="../static/css/election.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
 
-    <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
+    <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css"/>
     <!-- jQuery -->
     <script src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="http://github.hubspot.com/odometer/odometer.js"></script>
     <script src="/static/js/election.js"></script>
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">Skyline Systems</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">Skyline Systems</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#services">Services</a>
+                </li>
+                <li>
+                    <a href="/quick">Quick Analysis</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div class="col-md-7 col-md-offset-3">
+
+    <div>
+        <h3>Total Tweets: </h3>
+        <div id="odometer" class="odometer" onclick="update_total">Loading</div>
+    </div>
+    <br>
+    <img id="loading" class="loading" src="../static/img/loading.gif">
+    <div data-role="popup" id="myPopup" class="date_form" style="min-width:250px;">
+        <input type="text" name="daterange" value="01/01/2015 - 01/31/2015"/>
+
+        <script type="text/javascript">
+            $(function () {
+                $('input[name="daterange"]').daterangepicker();
+            });
+        </script>
+    </div>
+
+    <ul class="nav nav-pills">
+        <li id="tab1" class="active"><a href="javascript:void(0)" onclick="get_impact_last_day()">Last 24 Hours</a></li>
+        <li id="tab2"><a href="javascript:void(0)" onclick="get_impact_last_3day()">Last 3 Days</a></li>
+        <li id="tab3"><a href="javascript:void(0)" onclick="get_impact_last_week()">Last Week</a></li>
+        <li id="tab4"><a href="javascript:void(0)" onclick="get_impact_max()">Max</a></li>
+        <li id="tab5"><a href="javascript:void(0)" onclick="date_form()">Select date range</a></li>
+    </ul>
+    <div id="dual_y_div" style="width: 100%; height: 500px;"></div>
+
+    <div class="chart" style="width: 100%;" id="ElectionChart"></div>
+
+</div>
+
+<div class="col-md-3 col-md-offset-3">
+    <h2>Donald Trump</h2>
+    <img src="../static/img/Donald_Trump.jpg">
+</div>
+
+<div class="col-md-3 col-md-offset-1">
+    <h2>Hillary Clinton</h2>
+    <img src="../static/img/Hillary_Clinton.jpg">
+</div>
+<div class="col-md-3 col-md-offset-3">
+    <h2>Ted Cruz</h2>
+    <img src="../static/img/Ted_Cruz.jpg">
+</div>
+<div class="col-md-3 col-md-offset-1">
+    <h2>Bernie Sanders</h2>
+    <img src="../static/img/Bernie_Sanders.jpg">
+</div>
+
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-inline">
                     <li>
-                        <a href="/dashboard">Dashboard</a>
+                        <a href="#">Home</a>
                     </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
                     <li>
                         <a href="#services">Services</a>
                     </li>
+                    <li class="footer-menu-divider">&sdot;</li>
                     <li>
-                         <a href="/quick">Quick Analysis</a>
+                        <a href="#contact">Contact</a>
                     </li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="col-md-8 col-md-offset-2">
-
-        <div>
-            <h3>Total Tweets: </h3><div id="odometer" class="odometer" onclick="update_total">Loading</div>
-        </div>
-        <br>
-        <img id="loading" class="loading" src="../static/img/loading.gif">
-
-        <ul class="nav nav-pills">
-              <li id="tab1" class="active"><a href="javascript:void(0)" onclick="get_impact_last_day()">Last 24 Hours</a></li>
-              <li id="tab2" ><a href="javascript:void(0)" onclick="get_impact_last_3day()">Last 3 Days</a></li>
-              <li id="tab3" ><a href="javascript:void(0)" onclick="get_impact_last_week()">Last Week</a></li>
-              <li id="tab4" ><a href="javascript:void(0)" onclick="get_impact_max()">Max</a></li>
-        </ul>
-         <div id="dual_y_div" style="width: 900px; height: 500px;"></div>
-
-        <div class="chart" id="ElectionChart"></div>
-
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Donald Trump</h2>
-        <img src="../static/img/Donald_Trump.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Hillary Clinton</h2>
-        <img src="../static/img/Hillary_Clinton.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Bernie Sanders</h2>
-        <img src="../static/img/Bernie_Sanders.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Ted Cruz</h2>
-        <img src="../static/img/Ted_Cruz.jpg">
-    </div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <h2>Marco Rubio</h2>
-        <img src="../static/img/Marco_Rubio.jpg">
-    </div>
-
-
-
-
-
-
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#about">About</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#services">Services</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Wan Yuan 2015-2016. All Rights Reserved</p>
-                </div>
+                <p class="copyright text-muted small">Copyright &copy; Wan Yuan 2015-2016. All Rights Reserved</p>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/countUp.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/countUp.js"></script>
 
 
 </body>

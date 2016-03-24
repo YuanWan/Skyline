@@ -95,6 +95,11 @@ def election():
     return render_template("election.html")
 
 
+@app.route("/case")
+def case():
+    return render_template("case.html")
+
+
 @app.route("/newspaper/<stackname>")
 def newspaper(stackname):
     return render_template("newspaper.html", stackname=stackname)
@@ -269,7 +274,7 @@ def election_api_impact_240000():
     return json_response
 
 
-@app.route("/election_api/impact_lastweek")
+@app.route("/election_api/impact_week")
 def election_api_impact_lastweek():
     impact = analytics.impact_lastweek()
     json_response = json.dumps(impact)

@@ -12,3 +12,13 @@
 
     z-index: 1;
 }
+
+.date_form {
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    margin-left: 0%;
+    margin-top: 5px;
+
+    z-index: 1;
+}
