@@ -69,6 +69,9 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 
+    <script src="/static/js/jqcloud.js"></script>
+    <link rel="stylesheet" href="/static/css/jqcloud.css">
+
 </head>
 
 <body>
@@ -115,7 +118,7 @@
     <br>
     <img id="loading" class="loading" src="../static/img/loading.gif">
     <div data-role="popup" id="myPopup" class="date_form" style="min-width:250px;">
-        <input type="text" name="daterange" value="01/01/2015 - 01/31/2015"/>
+        {#        <input type="text" name="daterange" value="01/01/2015 - 01/31/2015"/>#}
 
         <script type="text/javascript">
             $(function () {
@@ -137,20 +140,39 @@
 
 </div>
 
-<div class="col-md-3 col-md-offset-3">
-    <h2>Donald Trump</h2>
-    <img src="../static/img/Donald_Trump.jpg">
+<div class="col-md-2">
 </div>
 
-<div class="col-md-3 col-md-offset-1">
+<div class=" col-md-7 col-md-offset-3">
+    <div id="cloud_all" class="jqcloud" style="width: 1000px; height: 800px;"></div>
+    <script type="text/javascript">
+
+        $('#cloud_all').jQCloud({{ word_list|safe }}, {
+            autoResize: true,
+            {#        shape: 'rectangular',#}
+            fontSize: {
+                from: 0.12,
+                to: 0.02
+            }
+        });
+
+    </script>
+</div>
+<div class="col-md-2"> </div>
+<div class=" col-md-2 col-md-offset-2">
+<h2>Donald Trump</h2>
+<img src="../static/img/Donald_Trump.jpg">
+</div>
+
+<div class="col-md-2">
     <h2>Hillary Clinton</h2>
     <img src="../static/img/Hillary_Clinton.jpg">
 </div>
-<div class="col-md-3 col-md-offset-3">
+<div class="col-md-2">
     <h2>Ted Cruz</h2>
     <img src="../static/img/Ted_Cruz.jpg">
 </div>
-<div class="col-md-3 col-md-offset-1">
+<div class="col-md-2">
     <h2>Bernie Sanders</h2>
     <img src="../static/img/Bernie_Sanders.jpg">
 </div>

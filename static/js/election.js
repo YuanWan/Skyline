@@ -63,9 +63,7 @@ function drawStuff() {
         ['Donald Trump', summary.Trump.score, summary.Trump.impact],
         ['Hillary Clinton', summary.Clinton.score, summary.Clinton.impact],
         ['Bernie Sanders', summary.Sanders.score, summary.Sanders.impact],
-        ['Ted Cruz', summary.Cruz.score, summary.Cruz.impact],
-
-        ['Marco Rubio', summary.Rubio.score, summary.Rubio.impact]
+        ['Ted Cruz', summary.Cruz.score, summary.Cruz.impact]
     ]);
 
 

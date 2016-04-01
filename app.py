@@ -92,7 +92,8 @@ def dashboard():
 
 @app.route("/election")
 def election():
-    return render_template("election.html")
+    word_list = frequentTools.find_frequent_word()
+    return render_template("election.html", word_list=json.dumps(word_list))
 
 
 @app.route("/case")
@@ -133,6 +134,12 @@ def gmonitor():
 def call_frequent():
     word_list = frequentTools.find_frequent_word()
     return render_template("word_cloud.html", word_list=json.dumps(word_list))
+
+
+@app.route('/api/election_frequent/<candidate>', methods=['GET'])
+def call_election_frequent(candidate):
+    word_list = frequentTools.candidate_frequent_word(candidate)
+    return json.dumps(word_list)
 
 
 @app.route('/api/trends_us/', methods=['GET'])
