@@ -87,7 +87,7 @@ def candidate_frequent_word(candidate):
 
     result = []
     collection = connection[DBS_NAME]['election']
-    twitters = collection.find( {'candidate': int(candidate)}).sort( '$natural', pymongo.DESCENDING ).limit(10000)
+    twitters = collection.find( {'candidate': int(candidate)}).sort( '$natural', pymongo.DESCENDING ).limit(50000)
     for twitter in twitters:
         result.append(twitter.get('text'))
     str1 = ' '.join(str(e) for e in result)

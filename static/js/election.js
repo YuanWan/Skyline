@@ -11,46 +11,46 @@ function update_total() {
     }, 5000);
 }
 var summary = new Object();
-function get_impact_init(){
+function get_impact_init() {
     $.getJSON('/election_api/impact_lastday', function (data) {
-        summary=data
+        summary = data
         loadGoogleChart();
 
     });
 }
 
-function get_impact_last_day(){
+function get_impact_last_day() {
     $.getJSON('/election_api/impact_lastday', function (data) {
-        summary=data
+        summary = data
         drawStuff();
     });
 }
 
-function get_impact_last_3day(){
+function get_impact_last_3day() {
     $.getJSON('/election_api/impact_last3day', function (data) {
-        summary=data
+        summary = data
         drawStuff();
     });
 }
 
 
-function get_impact_last_week(){
+function get_impact_last_week() {
     $.getJSON('/election_api/impact_week', function (data) {
-        summary=data
+        summary = data
         drawStuff();
     });
 }
 
 
-function get_impact_max(){
+function get_impact_max() {
     $.getJSON('/election_api/impact', function (data) {
-        summary=data
+        summary = data
         drawStuff();
     });
 }
 
 
-function loadGoogleChart(){
+function loadGoogleChart() {
     google.charts.load('current', {'packages': ['bar']});
     google.charts.setOnLoadCallback(drawStuff);
 }
@@ -91,19 +91,36 @@ function drawStuff() {
 
 };
 
+function show_cloud(wordscount) {
+    $('#individual_cloud').jQCloud(wordscount, {
+        shape: 'rectangular',
+        classPattern: null,
+        fontSize: {
+            from: 0.1,
+            to: 0.02
+        }
+    });
+}
+
+
+function show_individual_cloud(candidate) {
+    url='/api/election_frequent/'+candidate;
+    $.getJSON(url, function (data) {
+        show_cloud(data)
+    });
+}
+
 
 $(document).ready(function () {
-        $("#tab1,#tab2,#tab3,#tab4").click( function () {
-            $("#tab1").removeClass("active");
-            $("#tab2").removeClass("active");
-            $("#tab3").removeClass("active");
-            $("#tab4").removeClass("active");
-            $(this).addClass("active");
-            $("#loading").show();
-        });
+    $("#tab1,#tab2,#tab3,#tab4").click(function () {
+        $("#tab1").removeClass("active");
+        $("#tab2").removeClass("active");
+        $("#tab3").removeClass("active");
+        $("#tab4").removeClass("active");
+        $(this).addClass("active");
+        $("#loading").show();
     });
-
-
+});
 
 
 update_total();

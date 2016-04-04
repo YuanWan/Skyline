@@ -83,7 +83,7 @@ $(document).ready(function(){
                   .attr("y", -18)
                   .attr("dy", ".90em")
                   .style("text-anchor", "end")
-                  .text("Seconds");
+                  .text("5*Seconds");
 
             // Add the Y Axis
             svg.append("g")

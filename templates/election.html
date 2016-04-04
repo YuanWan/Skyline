@@ -149,7 +149,7 @@
 
         $('#cloud_all').jQCloud({{ word_list|safe }}, {
             autoResize: true,
-            {#        shape: 'rectangular',#}
+                    shape: 'rectangular',
             fontSize: {
                 from: 0.12,
                 to: 0.02
@@ -160,23 +160,29 @@
 </div>
 <div class="col-md-2"> </div>
 <div class=" col-md-2 col-md-offset-2">
-<h2>Donald Trump</h2>
+    <a onclick="show_individual_cloud(0)"><h2>Donald Trump</h2></a>
+
 <img src="../static/img/Donald_Trump.jpg">
 </div>
 
 <div class="col-md-2">
-    <h2>Hillary Clinton</h2>
+    <a onclick="show_individual_cloud(1)"><h2>Hillary Clinton</h2></a>
     <img src="../static/img/Hillary_Clinton.jpg">
 </div>
 <div class="col-md-2">
-    <h2>Ted Cruz</h2>
+    <a onclick="show_individual_cloud(3)"><h2>Ted Cruz</h2></a>
+
     <img src="../static/img/Ted_Cruz.jpg">
 </div>
 <div class="col-md-2">
-    <h2>Bernie Sanders</h2>
+    <a onclick="show_individual_cloud(2)"><h2>Bernie Sanders</h2></a>
+
     <img src="../static/img/Bernie_Sanders.jpg">
 </div>
 
+<div class=" col-md-7 col-md-offset-3">
+<div id="individual_cloud" class="jqcloud" style="width: 1000px; height: 800px;"></div>
+    </div>
 
 <!-- Footer -->
 <footer>
