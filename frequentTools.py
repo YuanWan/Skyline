@@ -232,7 +232,7 @@ def quick(text):
 
     # Output top 100 words
     word_list=[]
-    for word, frequency in fdist.most_common(100):
+    for word, frequency in fdist.most_common(15):
         data = {}
         data['text'] = word
         data['weight'] = frequency

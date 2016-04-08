@@ -3,7 +3,7 @@
  */
 function analyze(link_hash){
     var stackname = $("#stackname")[0].value;
-    var articleAPI = "/db/article/"+stackname+"/"+link_hash;
+    var articleAPI = "/db/article/"+'spacex'+"/"+link_hash;
     $.getJSON( articleAPI, {
     link_hash: link_hash
   })

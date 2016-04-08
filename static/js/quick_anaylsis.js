@@ -40,5 +40,6 @@ var p = new JustGage({
     min: -10,
     max: 10,
     title: "Polarity",
-    reverse:true
+    levelColors: [ "#ff0000","#f9c802","#a9d70b" ]
+    //reverse:true
   });

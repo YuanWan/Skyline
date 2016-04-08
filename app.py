@@ -213,10 +213,10 @@ def db_twitter():
     return json_twitters
 
 
-@app.route("/db/news/<stackname>")
-def db_news(stackname):
-    collection = connection['news'][stackname]
-    news = collection.find(limit=100)
+@app.route("/db/news/<page>")
+def db_news(page):
+    collection = connection['news']['spacex']
+    news = collection.find().sort( '$natural', pymongo.DESCENDING ).skip((int(page)-1)*20).limit(20)
     # projects = collection.find(projection=FIELDS)
     json_news = []
     for new in news:
