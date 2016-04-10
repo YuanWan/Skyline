@@ -139,8 +139,13 @@
 
 <div class="col-md-2">
 </div>
-
-<div class=" col-md-7 col-md-offset-3">
+<div class=" col-md-6 col-md-offset-3">
+    <h3>Weekly Stats(Adjusted)</h3>
+    <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;" ></div>
+</div>
+<h3></h3>
+<div class=" col-md-6 col-md-offset-3">
+    <h3>General Word Cloud</h3>
     <div id="cloud_all" class="jqcloud" style="width: 1000px; height: 800px;"></div>
     <script type="text/javascript">
 
@@ -216,6 +221,189 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/countUp.js"></script>
+
+    <!-- amCharts javascript sources -->
+		<script type="text/javascript" src="../static/js/amcharts.js"></script>
+		<script type="text/javascript" src="../static/js/serial.js"></script>
+
+		<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("chartdiv",
+				{
+					"type": "serial",
+					"categoryField": "week",
+					"autoMarginOffset": 40,
+					"marginRight": 60,
+					"marginTop": 60,
+					"startDuration": 1,
+					"fontSize": 13,
+					"theme": "default",
+					"categoryAxis": {
+						"gridPosition": "start"
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonText": "[[title]] :[[value]]",
+							"bullet": "round",
+							"bulletSize": 10,
+							"id": "AmGraph-1",
+							"lineThickness": 3,
+							"title": "Trump",
+							"type": "smoothedLine",
+							"valueField": "column-1"
+						},
+						{
+							"balloonText": "[[title]] :[[value]]",
+							"bullet": "round",
+							"bulletSize": 10,
+							"id": "AmGraph-2",
+							"lineThickness": 3,
+							"title": "Cliton",
+							"type": "smoothedLine",
+							"valueField": "column-2"
+						},
+						{
+							"balloonText": "[[title]] :[[value]]",
+							"bullet": "round",
+							"bulletSize": 10,
+							"id": "AmGraph-3",
+							"lineThickness": 3,
+							"title": "Sanders",
+							"type": "smoothedLine",
+							"valueField": "column-3"
+						},
+						{
+							"balloonText": "[[title]] :[[value]]",
+							"bullet": "round",
+							"bulletSize": 10,
+							"id": "AmGraph-4",
+							"lineThickness": 3,
+							"title": "Cruz",
+							"type": "smoothedLine",
+							"valueField": "column-4"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"title": ""
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"titles": [],
+					"dataProvider": [
+						{
+							"column-1": 53,
+							"column-2": 46,
+                            "column-3": 39,
+                            "column-4": 18,
+							"week": "1"
+						},
+                            						{
+							"column-1": 50,
+							"column-2": 45,
+                            "column-3": 33,
+                            "column-4": 15,
+							"week": "2"
+						},
+                            						{
+							"column-1": 55,
+							"column-2": 41,
+                            "column-3": 39,
+                            "column-4": 18,
+							"week": "3"
+						},
+                            						{
+							"column-1": 58,
+							"column-2": 44,
+                            "column-3": 40,
+                            "column-4": 24,
+							"week": "4"
+						},
+                            						{
+							"column-1": 60,
+							"column-2": 43,
+                            "column-3": 43,
+                            "column-4": 25,
+							"week": "5"
+						},
+                            						{
+							"column-1": 56,
+							"column-2": 38,
+                            "column-3": 45,
+                            "column-4": 23,
+							"week": "6"
+						},
+                            						{
+							"column-1": 59,
+							"column-2": 40,
+                            "column-3": 50,
+                            "column-4": 29,
+							"week": "7"
+						},
+                            						{
+							"column-1": 62,
+							"column-2": 43,
+                            "column-3": 52,
+                            "column-4": 33,
+							"week": "8"
+						},
+                            						{
+							"column-1": 77,
+							"column-2": 45,
+                            "column-3": 50,
+                            "column-4": 33,
+							"week": "9"
+						},
+                            						{
+							"column-1": 83,
+							"column-2": 37,
+                            "column-3": 53,
+                            "column-4": 30,
+							"week": "10"
+						},
+                            						{
+							"column-1": 69,
+							"column-2": 35,
+                            "column-3": 58,
+                            "column-4": 35,
+							"week": "11"
+						},
+                            						{
+							"column-1": 55,
+							"column-2": 32,
+                            "column-3": 55,
+                            "column-4": 39,
+							"week": "12"
+						},
+                        {
+							"column-1": 48,
+							"column-2": 33,
+                            "column-3": 56,
+                            "column-4": 28,
+							"week": "13"
+						},
+                                                        						{
+							"column-1": 52,
+							"column-2": 30,
+                            "column-3": 59,
+                            "column-4": 42,
+							"week": "14"
+						},
+                                                        						{
+							"column-1": 43,
+							"column-2": 23,
+                            "column-3": 70,
+                            "column-4": 48,
+							"week": "15"
+						}
+					]
+				}
+			);
+		</script>
 
 
 </body>
