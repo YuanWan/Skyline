@@ -120,7 +120,7 @@ $(document).ready(function(){
             //    }
 
             var geojsonMarkerOptions = {
-                radius: 3,
+                radius: 5,
                 fillColor: getColor(msg.score),
                 color: getColor(msg.score),
                 weight: 1,
@@ -143,7 +143,7 @@ $(document).ready(function(){
             $('#log').prepend('<br>Received : ' + msg.text);
             if (coordinates[0]!=null) {
                 L.circleMarker(coordinates, geojsonMarkerOptions)
-                    .addTo(map).bindPopup("<div class='row'><div class='col-md-3'><img src=" + msg.profile_image + " class='img-rounded'></div><div class='col-md-9'><h5 style='color:black'>" + msg.username + "</h5><p style='color:grey'>" + msg.status + "</p></div></div>");
+                    .addTo(map).bindPopup("<div class='row'><div class='col-md-3'><img src=" + msg.user.profile_image_url + " class='img-rounded'></div><div class='col-md-9'><h5 style='color:black'>" + msg.user.name + "</h5><p style='color:grey'>" + msg.text + "</p></div></div>");
             }
         }
 
