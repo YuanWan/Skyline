@@ -76,34 +76,35 @@
 <body>
 
 <!-- Navigation -->
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">CyberPulse</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/case">Case Study</a>
-                    </li>
-                    <li>
-                         <a href="/quick">Quick Analysis</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">CyberPulse</a>
         </div>
-        <!-- /.container -->
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/case">Case Study</a>
+                </li>
+                <li>
+                    <a href="/quick">Quick Analysis</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 
 <div class="col-md-7 col-md-offset-3">
 
@@ -128,7 +129,7 @@
         <li id="tab2"><a href="javascript:void(0)" onclick="get_impact_last_3day()">Last 3 Days</a></li>
         <li id="tab3"><a href="javascript:void(0)" onclick="get_impact_last_week()">Last Week</a></li>
         <li id="tab4"><a href="javascript:void(0)" onclick="get_impact_max()">Max</a></li>
-{#        <li id="tab5"><a href="javascript:void(0)" onclick="date_form()">Select date range</a></li>#}
+        {#        <li id="tab5"><a href="javascript:void(0)" onclick="date_form()">Select date range</a></li>#}
     </ul>
     <div id="dual_y_div" style="width: 100%; height: 500px;"></div>
 
@@ -140,17 +141,19 @@
 </div>
 <div class=" col-md-6 col-md-offset-3">
     <h3>Weekly Stats(Adjusted)</h3>
-    <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;" ></div>
+    <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;"></div>
 </div>
 <h3></h3>
 <div class=" col-md-6 col-md-offset-3">
     <h3>General Word Cloud</h3>
-    <div id="cloud_all" class="jqcloud" style="width: 1000px; height: 800px;"></div>
+</div>
+<div class=" col-md-8 col-md-offset-2 col-sm-offset-0">
+    <div id="cloud_all" class="jqcloud" style="min-width: 350px; height: 800px;"></div>
     <script type="text/javascript">
 
         $('#cloud_all').jQCloud({{ word_list|safe }}, {
             autoResize: true,
-                    shape: 'rectangular',
+            shape: 'rectangular',
             fontSize: {
                 from: 0.12,
                 to: 0.02
@@ -159,34 +162,42 @@
 
     </script>
 </div>
-<div class="col-md-2"> </div>
-<div class=" col-md-2 col-md-offset-2">
-    <a onclick="show_individual_cloud(0)"><h2>Donald Trump</h2></a>
 
-<img src="../static/img/Donald_Trump.jpg">
+<div class=" col-md-6 col-md-offset-3">
+    <h3>Personal Word Cloud</h3>
 </div>
+<div class=" col-md-8 col-md-offset-2">
 
-<div class="col-md-2">
-    <a onclick="show_individual_cloud(1)"><h2>Hillary Clinton</h2></a>
-    <img src="../static/img/Hillary_Clinton.jpg">
-</div>
-<div class="col-md-2">
-    <a onclick="show_individual_cloud(3)"><h2>Ted Cruz</h2></a>
+    <div class=" col-md-3">
+        <a onclick="show_individual_cloud(0)"><h2>Donald Trump</h2></a>
 
-    <img src="../static/img/Ted_Cruz.jpg">
-</div>
-<div class="col-md-2">
-    <a onclick="show_individual_cloud(2)"><h2>Bernie Sanders</h2></a>
-
-    <img src="../static/img/Bernie_Sanders.jpg">
-</div>
-
-<div class=" col-md-7 col-md-offset-3">
-    <div id="individual_cloud0" class="jqcloud" style="width: 1000px; height: 800px;"></div>
-    <div id="individual_cloud1" class="jqcloud" style="width: 1000px; height: 800px;"></div>
-    <div id="individual_cloud2" class="jqcloud" style="width: 1000px; height: 800px;"></div>
-    <div id="individual_cloud3" class="jqcloud" style="width: 1000px; height: 800px;"></div>
+        <img src="../static/img/Donald_Trump.jpg">
     </div>
+
+    <div class="col-md-3">
+        <a onclick="show_individual_cloud(1)"><h2>Hillary Clinton</h2></a>
+        <img src="../static/img/Hillary_Clinton.jpg">
+    </div>
+    <div class="col-md-3">
+        <a onclick="show_individual_cloud(3)"><h2>Ted Cruz </h2></a>
+
+        <img src="../static/img/Ted_Cruz.jpg">
+    </div>
+    <div class="col-md-3">
+        <a onclick="show_individual_cloud(2)"><h2>Bernie Sanders</h2></a>
+
+        <img src="../static/img/Bernie_Sanders.jpg">
+    </div>
+
+    <div>
+        <div id="individual_cloud0" class="jqcloud" style="min-width: 350px; height: 800px;"></div>
+        <div id="individual_cloud1" class="jqcloud" style="min-width: 350px; height: 800px;"></div>
+        <div id="individual_cloud2" class="jqcloud" style="min-width: 350px; height: 800px;"></div>
+        <div id="individual_cloud3" class="jqcloud" style="min-width: 350px; height: 800px;"></div>
+    </div>
+</div>
+<br><br>
+
 
 <!-- Footer -->
 <footer>
@@ -216,193 +227,198 @@
     </div>
 </footer>
 
-
+<script type="application/javascript">
+    $("#individual_cloud0").hide();
+    $("#individual_cloud1").hide();
+    $("#individual_cloud2").hide();
+    $("#individual_cloud3").hide();
+</script>
 <!-- Bootstrap Core JavaScript -->
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/countUp.js"></script>
 
-    <!-- amCharts javascript sources -->
-		<script type="text/javascript" src="../static/js/amcharts.js"></script>
-		<script type="text/javascript" src="../static/js/serial.js"></script>
+<!-- amCharts javascript sources -->
+<script type="text/javascript" src="../static/js/amcharts.js"></script>
+<script type="text/javascript" src="../static/js/serial.js"></script>
 
-		<!-- amCharts javascript code -->
-		<script type="text/javascript">
-			AmCharts.makeChart("chartdiv",
-				{
-					"type": "serial",
-					"categoryField": "week",
-					"autoMarginOffset": 40,
-					"marginRight": 60,
-					"marginTop": 60,
-					"startDuration": 1,
-					"fontSize": 13,
-					"theme": "default",
-					"categoryAxis": {
-						"gridPosition": "start"
-					},
-					"trendLines": [],
-					"graphs": [
-						{
-							"balloonText": "[[title]] :[[value]]",
-							"bullet": "round",
-							"bulletSize": 10,
-							"id": "AmGraph-1",
-							"lineThickness": 3,
-							"title": "Trump",
-							"type": "smoothedLine",
-							"valueField": "column-1"
-						},
-						{
-							"balloonText": "[[title]] :[[value]]",
-							"bullet": "round",
-							"bulletSize": 10,
-							"id": "AmGraph-2",
-							"lineThickness": 3,
-							"title": "Cliton",
-							"type": "smoothedLine",
-							"valueField": "column-2"
-						},
-						{
-							"balloonText": "[[title]] :[[value]]",
-							"bullet": "round",
-							"bulletSize": 10,
-							"id": "AmGraph-3",
-							"lineThickness": 3,
-							"title": "Sanders",
-							"type": "smoothedLine",
-							"valueField": "column-3"
-						},
-						{
-							"balloonText": "[[title]] :[[value]]",
-							"bullet": "round",
-							"bulletSize": 10,
-							"id": "AmGraph-4",
-							"lineThickness": 3,
-							"title": "Cruz",
-							"type": "smoothedLine",
-							"valueField": "column-4"
-						}
-					],
-					"guides": [],
-					"valueAxes": [
-						{
-							"id": "ValueAxis-1",
-							"title": ""
-						}
-					],
-					"allLabels": [],
-					"balloon": {},
-					"titles": [],
-					"dataProvider": [
-						{
-							"column-1": 53,
-							"column-2": 46,
-                            "column-3": 39,
-                            "column-4": 18,
-							"week": "1"
-						},
-                            						{
-							"column-1": 50,
-							"column-2": 45,
-                            "column-3": 33,
-                            "column-4": 15,
-							"week": "2"
-						},
-                            						{
-							"column-1": 55,
-							"column-2": 41,
-                            "column-3": 39,
-                            "column-4": 18,
-							"week": "3"
-						},
-                            						{
-							"column-1": 58,
-							"column-2": 44,
-                            "column-3": 40,
-                            "column-4": 24,
-							"week": "4"
-						},
-                            						{
-							"column-1": 60,
-							"column-2": 43,
-                            "column-3": 43,
-                            "column-4": 25,
-							"week": "5"
-						},
-                            						{
-							"column-1": 56,
-							"column-2": 38,
-                            "column-3": 45,
-                            "column-4": 23,
-							"week": "6"
-						},
-                            						{
-							"column-1": 59,
-							"column-2": 40,
-                            "column-3": 50,
-                            "column-4": 29,
-							"week": "7"
-						},
-                            						{
-							"column-1": 62,
-							"column-2": 43,
-                            "column-3": 52,
-                            "column-4": 33,
-							"week": "8"
-						},
-                            						{
-							"column-1": 77,
-							"column-2": 45,
-                            "column-3": 50,
-                            "column-4": 33,
-							"week": "9"
-						},
-                            						{
-							"column-1": 83,
-							"column-2": 37,
-                            "column-3": 53,
-                            "column-4": 30,
-							"week": "10"
-						},
-                            						{
-							"column-1": 69,
-							"column-2": 35,
-                            "column-3": 58,
-                            "column-4": 35,
-							"week": "11"
-						},
-                            						{
-							"column-1": 55,
-							"column-2": 32,
-                            "column-3": 55,
-                            "column-4": 39,
-							"week": "12"
-						},
-                        {
-							"column-1": 48,
-							"column-2": 33,
-                            "column-3": 56,
-                            "column-4": 28,
-							"week": "13"
-						},
-                                                        						{
-							"column-1": 52,
-							"column-2": 30,
-                            "column-3": 59,
-                            "column-4": 42,
-							"week": "14"
-						},
-                                                        						{
-							"column-1": 43,
-							"column-2": 23,
-                            "column-3": 70,
-                            "column-4": 48,
-							"week": "15"
-						}
-					]
-				}
-			);
-		</script>
+<!-- amCharts javascript code -->
+<script type="text/javascript">
+    AmCharts.makeChart("chartdiv",
+            {
+                "type": "serial",
+                "categoryField": "week",
+                "autoMarginOffset": 40,
+                "marginRight": 60,
+                "marginTop": 60,
+                "startDuration": 1,
+                "fontSize": 13,
+                "theme": "default",
+                "categoryAxis": {
+                    "gridPosition": "start"
+                },
+                "trendLines": [],
+                "graphs": [
+                    {
+                        "balloonText": "[[title]] :[[value]]",
+                        "bullet": "round",
+                        "bulletSize": 10,
+                        "id": "AmGraph-1",
+                        "lineThickness": 3,
+                        "title": "Trump",
+                        "type": "smoothedLine",
+                        "valueField": "column-1"
+                    },
+                    {
+                        "balloonText": "[[title]] :[[value]]",
+                        "bullet": "round",
+                        "bulletSize": 10,
+                        "id": "AmGraph-2",
+                        "lineThickness": 3,
+                        "title": "Cliton",
+                        "type": "smoothedLine",
+                        "valueField": "column-2"
+                    },
+                    {
+                        "balloonText": "[[title]] :[[value]]",
+                        "bullet": "round",
+                        "bulletSize": 10,
+                        "id": "AmGraph-3",
+                        "lineThickness": 3,
+                        "title": "Sanders",
+                        "type": "smoothedLine",
+                        "valueField": "column-3"
+                    },
+                    {
+                        "balloonText": "[[title]] :[[value]]",
+                        "bullet": "round",
+                        "bulletSize": 10,
+                        "id": "AmGraph-4",
+                        "lineThickness": 3,
+                        "title": "Cruz",
+                        "type": "smoothedLine",
+                        "valueField": "column-4"
+                    }
+                ],
+                "guides": [],
+                "valueAxes": [
+                    {
+                        "id": "ValueAxis-1",
+                        "title": ""
+                    }
+                ],
+                "allLabels": [],
+                "balloon": {},
+                "titles": [],
+                "dataProvider": [
+                    {
+                        "column-1": 53,
+                        "column-2": 46,
+                        "column-3": 39,
+                        "column-4": 18,
+                        "week": "1"
+                    },
+                    {
+                        "column-1": 50,
+                        "column-2": 45,
+                        "column-3": 33,
+                        "column-4": 15,
+                        "week": "2"
+                    },
+                    {
+                        "column-1": 55,
+                        "column-2": 41,
+                        "column-3": 39,
+                        "column-4": 18,
+                        "week": "3"
+                    },
+                    {
+                        "column-1": 58,
+                        "column-2": 44,
+                        "column-3": 40,
+                        "column-4": 24,
+                        "week": "4"
+                    },
+                    {
+                        "column-1": 60,
+                        "column-2": 43,
+                        "column-3": 43,
+                        "column-4": 25,
+                        "week": "5"
+                    },
+                    {
+                        "column-1": 56,
+                        "column-2": 38,
+                        "column-3": 45,
+                        "column-4": 23,
+                        "week": "6"
+                    },
+                    {
+                        "column-1": 59,
+                        "column-2": 40,
+                        "column-3": 50,
+                        "column-4": 29,
+                        "week": "7"
+                    },
+                    {
+                        "column-1": 62,
+                        "column-2": 43,
+                        "column-3": 52,
+                        "column-4": 33,
+                        "week": "8"
+                    },
+                    {
+                        "column-1": 77,
+                        "column-2": 45,
+                        "column-3": 50,
+                        "column-4": 33,
+                        "week": "9"
+                    },
+                    {
+                        "column-1": 83,
+                        "column-2": 37,
+                        "column-3": 53,
+                        "column-4": 30,
+                        "week": "10"
+                    },
+                    {
+                        "column-1": 69,
+                        "column-2": 35,
+                        "column-3": 58,
+                        "column-4": 35,
+                        "week": "11"
+                    },
+                    {
+                        "column-1": 55,
+                        "column-2": 32,
+                        "column-3": 55,
+                        "column-4": 39,
+                        "week": "12"
+                    },
+                    {
+                        "column-1": 48,
+                        "column-2": 33,
+                        "column-3": 56,
+                        "column-4": 28,
+                        "week": "13"
+                    },
+                    {
+                        "column-1": 52,
+                        "column-2": 30,
+                        "column-3": 59,
+                        "column-4": 42,
+                        "week": "14"
+                    },
+                    {
+                        "column-1": 43,
+                        "column-2": 23,
+                        "column-3": 70,
+                        "column-4": 48,
+                        "week": "15"
+                    }
+                ]
+            }
+    );
+</script>
 
 
 </body>

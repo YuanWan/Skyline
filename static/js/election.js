@@ -92,6 +92,7 @@ function drawStuff() {
 };
 
 function show_cloud(wordscount,candidate) {
+    $("#loading").hide();
     var cloud_id="#individual_cloud"+candidate;
     $(cloud_id).show();
     $(cloud_id).jQCloud(wordscount, {
@@ -110,6 +111,7 @@ function show_individual_cloud(candidate) {
     $("#individual_cloud1").hide();
     $("#individual_cloud2").hide();
     $("#individual_cloud3").hide();
+    $("#loading").show();
     url='/api/election_frequent/'+candidate;
     $.getJSON(url, function (data) {
         show_cloud(data,candidate)
@@ -131,7 +133,4 @@ $(document).ready(function () {
 
 update_total();
 get_impact_init();
-$("#individual_cloud0").hide();
-$("#individual_cloud1").hide();
-$("#individual_cloud2").hide();
-$("#individual_cloud3").hide();
+
