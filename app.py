@@ -126,7 +126,7 @@ def gmonitor():
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
-    streamfire = stream.filter(track=['Trump'], async=True)
+    streamfire = stream.filter(track=['Selfie'], async=True)
     return render_template("gmonitor.html")
 
 

@@ -28,7 +28,7 @@ function draw_analysis(data){
 
 var s = new JustGage({
     id: "subjectivity",
-    value: 6,
+    value: 10,
     min: -10,
     max: 10,
     title: "Subjectivity"
@@ -36,10 +36,12 @@ var s = new JustGage({
 
 var p = new JustGage({
     id: "polarity",
-    value: 7,
+    value: 10,
     min: -10,
     max: 10,
     title: "Polarity",
     levelColors: [ "#ff0000","#f9c802","#a9d70b" ]
     //reverse:true
   });
+
+$("#text_content")[0].value="School of EEE is excellent"

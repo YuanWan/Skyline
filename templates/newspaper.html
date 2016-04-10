@@ -15,78 +15,84 @@
 
     <style> .affix {
         position: fixed;
-      }</style>
+    }</style>
 
 </head>
 <body>
 
-    <!--Hidden Variable -->
-    <input hidden type="text" id="stackname" name="stackname" value="{{ stackname }}">
+<!--Hidden Variable -->
+<input hidden type="text" id="stackname" name="stackname" value="{{ stackname }}">
 
- <!-- Navigation -->
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">CyberPulse</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/case">Case Study</a>
-                    </li>
-                    <li>
-                         <a href="/quick">Quick Analysis</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+<!-- Navigation -->
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="pulse" src="../static/img/Picture1.png"><a class="navbar-brand topnav" href="/">CyberPulse</a>
         </div>
-        <!-- /.container -->
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/case">Case Study</a>
+                </li>
+                <li>
+                    <a href="/quick">Quick Analysis</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 
- <div class="row">
-     <div class="col-md-6 col-md-offset-3" id="news_list">
-            <div class="panel panel-primary">...</div>
-     </div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" id="news_list">
+        <div class="panel panel-primary">...</div>
+    </div>
 
-<div class="col-md-6 col-md-offset-3 text-center">
-    <ul class="pagination" id="paging">
+    <div class="col-md-6 col-md-offset-3 text-center">
+        <ul class="pagination" id="paging">
 
-    </ul>
-</div>
+        </ul>
+    </div>
 
-     <div class="blackout">
-     </div>
-     <div class="msgbox" style="overflow:scroll; height:70%;">
-         <div class="closeBox">
-             Close</div>
-{#         <br /><br /><br /><br />#}
-{#         <form action="#" method="post">You can put anything here :)<br />#}
-{#             <label><a href="#">CLICK HERE</a> to add me on FB.</label>#}
-{#         </form>#}
-         <div class="col-md-7">
-             <h2 id="pop_title"></h2>
-             <h3 id="pop_date"></h3>
-             <p id="pop_text"></p>
-         </div>
-         <div class="col-md-5">
-             <table class="table table-striped">
-  ...
+    <div class="blackout">
+    </div>
+    <div class="msgbox" style="overflow:scroll; height:70%;">
+        <div class="closeBox">
+            Close
+        </div>
+        {#         <br /><br /><br /><br />#}
+        {#         <form action="#" method="post">You can put anything here :)<br />#}
+        {#             <label><a href="#">CLICK HERE</a> to add me on FB.</label>#}
+        {#         </form>#}
+        <div class="col-md-7">
+            <h2 id="pop_title"></h2>
+            <h3 id="pop_date"></h3>
+            <p id="pop_text"></p>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-striped">
+                <thead>
+                <td>Word</td>
+                <td>Weight</td>
+                </thead>
+                <tbody id="wordtable"></tbody>
             </table>
-         </div>
+        </div>
 
-     </div>
+    </div>
 
- </div>
+</div>
 <script type="text/javascript" src="../static/js/newspaperTool.js"></script>
 <script type="text/javascript" src="../static/js/news_fetcher.js"></script>
 </body>
